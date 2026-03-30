@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huduma Zetu - Mkulima App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background: #0d1117;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        /* CARD YA KICHAPA (GLASSMORPHISM) */
+        
+        .service-card {
+            background: rgba(22, 27, 34, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(48, 54, 61, 0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        
+        .service-card:hover {
+            border-color: #39FF14;
+            transform: translateY(-12px);
+            box-shadow: 0 15px 30px rgba(57, 255, 20, 0.2);
+        }
+        /* PICHA ZILIZOREKEBISHWA */
+        
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: 0.5s;
+            filter: grayscale(30%);
+        }
+        
+        .service-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+        
+        .p-3 {
+            padding: 20px;
+            text-align: center;
+            /* Kichapa zaidi ikikaa katikati */
+        }
+        
+        .icon-box {
+            background: #39FF14;
+            color: black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -40px auto 15px auto;
+            /* Inapandisha icon juu ya picha */
+            position: relative;
+            z-index: 2;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-more {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            border: 1px solid #00d2ff;
+            color: #00d2ff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        
+        .btn-more:hover {
+            background: #00d2ff;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">MKULIMA APP</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html" style="color: #39FF14;">Services</a></li>
+            <li><a href="form.html">Sajili Zao</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" style="padding-top: 50px; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">Huduma <span style="color: #39FF14; text-shadow: 0 0 20px rgba(57,255,20,0.5);">Zetu</span></h1>
+        <p style="color: #8b949e; max-width: 600px; margin: 0 auto;">Tunatumia teknolojia rahisi kuhakikisha mkulima unapata faida stahiki kwa jasho lako.</p>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+                <img src="assets/mahindi.jpg.jpg" alt="Mahindi">
+                <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                <div class="p-3">
+                    <h3 style="color: #39FF14; margin-top: 10px;">Soko la Mahindi</h3>
+                    <p style="color: #8b949e; font-size: 0.95rem;">Uchambuzi wa bei za soko kwa wakati (Real-time) ili uuze kwa faida kubwa zaidi.</p>
+                    <a href="#" class="btn-more">Soma Zaidi</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="assets/mpunga.jpg.jpg" alt="Mpunga">
+                <div class="icon-box"><i class="fas fa-seedling"></i></div>
+                <div class="p-3">
+                    <h3 style="color: #39FF14; margin-top: 10px;">Kilimo cha Mpunga</h3>
+                    <p style="color: #8b949e; font-size: 0.95rem;">Ushauri wa kitaalamu wa mbegu bora na mbinu za kisasa za umwagiliaji.</p>
+                    <a href="#" class="btn-more">Soma Zaidi</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="assets/mbonga.jpg.jpg" alt="Mbogamboga">
+                <div class="icon-box"><i class="fas fa-truck-loading"></i></div>
+                <div class="p-3">
+                    <h3 style="color: #39FF14; margin-top: 10px;">Usafirishaji</h3>
+                    <p style="color: #8b949e; font-size: 0.95rem;">Tunakuunganisha na wasafirishaji wa uhakika kufikisha mazao yako sokoni yakiwa fresh.</p>
+                    <a href="#" class="btn-more">Soma Zaidi</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

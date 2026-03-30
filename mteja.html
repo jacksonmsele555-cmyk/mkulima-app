@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soko la Mkulima - Nunua Mazao</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .soko-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .zao-card {
+            background: #161b22;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+            transition: 0.4s;
+            overflow: hidden;
+        }
+        
+        .zao-card:hover {
+            transform: translateY(-10px);
+            border-color: #39FF14;
+            box-shadow: 0 15px 30px rgba(57, 255, 20, 0.2);
+        }
+        
+        .zao-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        .zao-info-container {
+            padding: 20px;
+        }
+        
+        .zao-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #00d2ff;
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
+        
+        .zao-price-tag {
+            font-size: 1.2rem;
+            color: #39FF14;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .mkulima-name {
+            font-size: 0.9rem;
+            color: #8b949e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-whatsapp-soko {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .btn-whatsapp-soko:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+        
+        .search-box {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        #searchInput {
+            width: 90%;
+            max-width: 500px;
+            padding: 15px;
+            border-radius: 50px;
+            border: 1px solid #30363d;
+            background: #161b22;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="search-box">
+            <h1>Soko la Mazao <span style="color:#39FF14">Mubashara</span></h1>
+            <input type="text" id="searchInput" placeholder="Tafuta zao au mkoa..." onkeyup="tafutaZao()">
+        </div>
+        <div id="sokoDisplay" class="soko-grid"></div>
+    </div>
+
+    <script>
+        const DATABASE_NAME = "MKULIMA_STORAGE";
+
+        function onyeshaSokoMteja() {
+            let database = JSON.parse(localStorage.getItem(DATABASE_NAME)) || [];
+            const sokoBody = document.getElementById('sokoDisplay');
+
+            if (database.length === 0) {
+                sokoBody.innerHTML = "<p style='text-align:center; grid-column: 1/-1;'>kuna mazao sasa.</p>";
+                return;
+            }
+
+            sokoBody.innerHTML = database.map(item => {
+                const ujumbe = `Habari ${item.jina}, nimeona zao lako la ${item.zao} kwenye MKULIMA APP. Bado lipo?`;
+                const nambaSafi = item.simu.replace(/\D/g, '');
+                const linkWhatsApp = `https://wa.me/${nambaSafi}?text=${encodeURIComponent(ujumbe)}`;
+
+                // HAPA NDIPO PICHA INACHAGULIWA KWA JINA
+                // Mfano kama zao ni "Mahindi", itatafuta "img/mahindi.jpg"
+                const jinaZao = item.zao.toLowerCase().trim();
+                const pichaYaZao = `img/${jinaZao}.jpg`;
+
+                return `
+                <div class="zao-card">
+                    <img src="${pichaYaZao}" alt="${item.zao}" onerror="this.src='hoho.png.png'">
+                    <div class="zao-info-container">
+                        <div class="zao-name">${item.zao}</div>
+                        <div class="zao-price-tag">Tsh ${Number(item.bei).toLocaleString()}</div>
+                        <div class="mkulima-name">
+                            <i class="fas fa-user-circle"></i> Mkulima: ${item.jina}
+                        </div>
+                        <a href="${linkWhatsApp}" target="_blank" class="btn-whatsapp-soko">
+                            <i class="fab fa-whatsapp"></i> TUMA UJUMBE
+                        </a>
+                    </div>
+                </div>`;
+            }).reverse().join('');
+        }
+
+        function tafutaZao() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('zao-card');
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].innerText.toLowerCase();
+                cards[i].style.display = text.includes(input) ? "" : "none";
+            }
+        }
+
+        window.onload = onyeshaSokoMteja;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sajili Dereva - Usafishaji</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: white;
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        
+        .form-box {
+            background: #161b22;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: auto;
+            border: 1px solid #30363d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            background: #0b0f19;
+            color: white;
+            box-sizing: border-box;
+            outline: none;
+        }
+        
+        input:focus {
+            border-color: #39FF14;
+        }
+        
+        .btn-tuma {
+            width: 100%;
+            padding: 15px;
+            background: #39FF14;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn-tuma:hover {
+            background: #2ecc71;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-box">
+        <h2 style="color:#39FF14; text-align:center;"><i class="fas fa-truck"></i> Sajili Chombo</h2>
+        <p style="text-align: center; color: #888; font-size: 0.8rem;">Jaza taarifa zako ili wateja wakupate Home</p>
+
+        <form onsubmit="hifadhiNaTuma(event)">
+            <input type="text" id="d_jina" placeholder="Jina lako kamili" required>
+
+            <input type="tel" id="d_simu" placeholder="Namba ya Simu (Mf: 0755...)" required>
+
+            <select id="d_gari" required>
+                <option value="">Aina ya Gari...</option>
+                <option value="Kirikuu">Kirikuu</option>
+                <option value="Fuso">Fuso</option>
+                <option value="Canter">Canter</option>
+                <option value="Bajaj ya Mizigo">Bajaj ya Mizigo</option>
+            </select>
+
+            <input type="text" id="d_eneo" placeholder="Eneo unalopatikana (Mf: Salasala)" required>
+            <input type="number" id="d_bei" placeholder="Bei ya kuanzia (Tsh)" required>
+
+            <button type="submit" class="btn-tuma">TUMA NA JISAJILI</button>
+        </form>
+    </div>
+
+    <script>
+        function hifadhiNaTuma(event) {
+            event.preventDefault();
+
+            // Kupata namba ya simu na kuisafisha
+            let rawSimu = document.getElementById('d_simu').value;
+            // Hii inahakikisha namba inaanza na 255 kwa ajili ya WhatsApp/Simu
+            let cleanSimu = rawSimu.trim();
+            if (cleanSimu.startsWith('0')) {
+                cleanSimu = '255' + cleanSimu.substring(1);
+            }
+
+            const dereva = {
+                jina: document.getElementById('d_jina').value,
+                simu: cleanSimu, // Namba iliyosafishwa
+                gari: document.getElementById('d_gari').value,
+                eneo: document.getElementById('d_eneo').value,
+                bei: document.getElementById('d_bei').value,
+                id: Date.now()
+            };
+
+            // 1. Hifadhi kwenye LocalStorage kwa ajili ya Home Page
+            let soko = JSON.parse(localStorage.getItem("SOKO_LA_MADEREVA")) || [];
+            soko.push(dereva);
+            localStorage.setItem("SOKO_LA_MADEREVA", JSON.stringify(soko));
+
+            // 2. Tuma WhatsApp kwa Admin (Wewe)
+            const nambaAdmin = "255755500736";
+            const msg = `*DEREVA MPYA AMERAUDI:*%0A👤 Jina: ${dereva.jina}%0A📞 Simu: ${dereva.simu}%0A🚚 Gari: ${dereva.gari}%0A📍 Eneo: ${dereva.eneo}%0A💰 Bei: Tsh ${dereva.bei}`;
+
+            alert("Hongera! Taarifa zako zimehifadhiwa na sasa utaonekana Home Page.");
+            window.location.href = `https://wa.me/${nambaAdmin}?text=${msg}`;
+        }
+    </script>
+</body>
+
+</html>
