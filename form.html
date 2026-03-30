@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sajili Zao - Mkulima App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .card-form {
+            background: #161b22;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #30363d;
+            max-width: 500px;
+            margin: 50px auto;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            color: white;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background: #39FF14;
+            color: black;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" style="padding:15px; background:#161b22; border-bottom:1px solid #30363d;">
+        <a href="index.html" style="color:#39FF14; text-decoration:none; font-weight:bold;">MKULIMA APP</a>
+    </nav>
+
+    <div class="card-form">
+        <h2 style="color: #39FF14; text-align: center;">TUMA TAARIFA KWA ADMIN</h2>
+        <form id="kilimoForm">
+            <input type="text" id="jina" placeholder="Jina la Mkulima" required>
+            <input type="text" id="zao" placeholder="Aina ya Zao" required>
+            <input type="number" id="bei" placeholder="Bei (Tsh)" required>
+            <input type="text" id="simu" placeholder="Namba ya Simu" required>
+            <button type="submit">TUMA SASA</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('kilimoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = {
+                id: Date.now(),
+                muda: new Date().toLocaleString('sw-TZ'),
+                jina: document.getElementById('jina').value,
+                zao: document.getElementById('zao').value,
+                bei: document.getElementById('bei').value,
+                simu: document.getElementById('simu').value
+            };
+            let storage = JSON.parse(localStorage.getItem('MKULIMA_STORAGE')) || [];
+            storage.push(data);
+            localStorage.setItem('MKULIMA_STORAGE', JSON.stringify(storage));
+            alert("Ujumbe umetumwa! Fungua Admin kuona.");
+            window.location.href = "admin.html";
+        });
+    </script>
+</body>
+
+</html>

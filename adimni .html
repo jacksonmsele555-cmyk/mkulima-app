@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #0d1117;
+            color: white;
+        }
+        
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #30363d;
+            text-align: left;
+        }
+        
+        th {
+            background: #161b22;
+            color: #39FF14;
+        }
+        
+        .btn-del {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" style="padding:15px; background:#161b22; border-bottom:1px solid #30363d;">
+        <a href="index.html" style="color:#39FF14; text-decoration:none; font-weight:bold;">ADMIN DASHBOARD</a>
+    </nav>
+
+    <div class="container" style="padding: 20px;">
+        <h2 style="color: #39FF14;">Ujumbe Uliopokelewa</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Muda</th>
+                    <th>Mkulima</th>
+                    <th>Zao</th>
+                    <th>Bei (Tsh)</th>
+                    <th>Simu</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="adminBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function onyeshaData() {
+            let storage = JSON.parse(localStorage.getItem('MKULIMA_STORAGE')) || [];
+            const table = document.getElementById('adminBody');
+            if (storage.length === 0) {
+                table.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Hamna ujumbe.</td></tr>";
+            } else {
+                table.innerHTML = storage.map(item => `
+                    <tr>
+                        <td>${item.muda}</td>
+                        <td>${item.jina}</td>
+                        <td>${item.zao}</td>
+                        <td style="color:#39FF14">Tsh ${Number(item.bei).toLocaleString()}</td>
+                        <td>${item.simu}</td>
+                        <td><button class="btn-del" onclick="futa(${item.id})">Futa</button></td>
+                    </tr>
+                `).reverse().join('');
+            }
+        }
+
+        function futa(id) {
+            let storage = JSON.parse(localStorage.getItem('MKULIMA_STORAGE')) || [];
+            storage = storage.filter(x => x.id !== id);
+            localStorage.setItem('MKULIMA_STORAGE', JSON.stringify(storage));
+            onyeshaData();
+        }
+        onyeshaData();
+    </script>
+</body>
+
+</html>

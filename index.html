@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mkulima Digital - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* 1. MPANGILIO WA VIDEO BACKGROUND */
+        
+        #video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(30%);
+            /* Giza kidogo zaidi kwa ajili ya usomaji bora */
+        }
+        /* 2. HERO SECTION */
+        
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            min-height: 85vh;
+            position: relative;
+            z-index: 1;
+            padding-top: 50px;
+        }
+        
+        .hero-content h1 {
+            font-size: 4.2rem;
+            color: white;
+            line-height: 1.1;
+            text-shadow: 2px 4px 15px rgba(0, 0, 0, 0.7);
+        }
+        
+        .text-green {
+            color: #39FF14;
+            text-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+        }
+        
+        .text-blue {
+            color: #00d2ff;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+        }
+        /* 3. SEHEMU YA SOKO PREVIEW (MTEJA) */
+        
+        .soko-preview {
+            position: relative;
+            z-index: 1;
+            padding: 80px 0;
+            background: linear-gradient(to bottom, transparent, #0b0f19);
+        }
+        
+        .soko-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .zao-card {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        
+        .zao-card:hover {
+            border-color: #39FF14;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(57, 255, 20, 0.2);
+        }
+        
+        .zao-title {
+            font-size: 1.4rem;
+            color: #00d2ff;
+            font-weight: bold;
+        }
+        
+        .zao-price {
+            font-size: 1.2rem;
+            color: #39FF14;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .btn-call-mini {
+            display: block;
+            background: #39FF14;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        /* 4. HERO IMAGE */
+        
+        .app-img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 30px;
+            border: 2px solid rgba(57, 255, 20, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            transition: 0.5s;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 20px;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .app-img {
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <video autoplay muted loop id="video-bg">
+        <source src="assets/1.mp4.mp4" type="video/mp4">
+        Browser yako haisapoti video.
+    </video>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">MKULIMA APP</a>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="index.html" class="active">Home</a></li>
+            <li class="nav-item"><a href="mteja.html">Soko</a></li>
+            <li class="nav-item"><a href="about.html">About</a></li>
+            <li class="nav-item"><a href="form.html">Sajili Zao</a></li>
+            <li class="nav-item"><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Kilimo cha <br><span class="text-green">Kisasa</span> kwa <br><span class="text-blue">Simu Yako</span></h1>
+                <p style="color: #ccc; font-size: 1.2rem; margin-top: 20px; max-width: 500px;">Jiunge na mfumo wa kidijitali unaorahisisha biashara ya mazao yako moja kwa moja kutoka shambani.</p>
+                <a href="form.html" class="btn-start">ANZA SASA</a>
+            </div>
+
+            <div class="hero-image">
+                <img src="assets/shambani.jpg.jpg" alt="Picha ya Shamba" class="app-img">
+            </div>
+        </div>
+
+        <section class="soko-preview">
+            <h2 style="color: #39FF14; text-align: center; font-size: 2rem;">Mazao Mapya Sokoni</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 30px;">Bonyeza Piga Simu kuongea na Mkulima moja kwa moja</p>
+
+            <div id="homeSokoDisplay" class="soko-grid">
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="mteja.html" class="btn-start" style="padding: 12px 35px; font-size: 1rem; animation: none;">TAZAMA SOKO ZIMA</a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function pakiaSokoLaHome() {
+            // Hakikisha jina la DATABASE ni lile lile la script.js yako
+            const DATABASE_NAME = "MKULIMA_STORAGE_PRO";
+            let database = JSON.parse(localStorage.getItem(DATABASE_NAME)) || [];
+            const display = document.getElementById('homeSokoDisplay');
+
+            if (database.length === 0) {
+                display.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#888;">kuna mazao sasa.</p>`;
+                return;
+            }
+
+            // Onyesha mazao 4 tu ya hivi karibuni
+            const hiviKaribuni = database.reverse().slice(0, 4);
+
+            display.innerHTML = hiviKaribuni.map(item => `
+                <div class="zao-card">
+                    <div class="zao-title">${item.zao}</div>
+                    <div class="zao-price">Tsh ${Number(item.bei).toLocaleString()}</div>
+                    <div style="font-size: 0.85rem; color: #8b949e; margin-bottom: 15px;">
+                        <i class="fas fa-user"></i> ${item.jina}
+                    </div>
+                    <a href="tel:${item.simu}" class="btn-call-mini">
+                        <i class="fas fa-phone-alt"></i> PIGA SIMU
+                    </a>
+                </div><div class="container" style="margin-top:50px;">
+    <h2 style="color:#39FF14; text-align:center;">Huduma za Usafirishaji 🚚</h2>
+    <div id="displayMaderevaHome" class="soko-grid">
+        </div>
+</div>
+            `).join('');
+        }
+
+        // Pakia data ukurasa ukimaliza kufunguka
+        document.addEventListener('DOMContentLoaded', pakiaSokoLaHome);
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
